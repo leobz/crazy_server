@@ -1,4 +1,5 @@
 const express = require('express')
+const mysql = require('mysql')
 const morgan = require('morgan')
 const app = express()
 const router = require('./router')
@@ -22,3 +23,18 @@ app.listen(3000, () => {
 // Routes
 app.use('/', router)
 
+
+// MySQL
+
+var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'nativeuser',
+    password: 'password',
+    database: 'prueba'
+});
+
+// Check connect
+connection.connect(error => {
+    if (error) throw error;
+    console.log('Database server running!')
+});
