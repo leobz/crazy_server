@@ -21,7 +21,7 @@ app.listen(3000, () => {
 
 
 // Routes
-app.use('/', router)
+//app.use('/', router)
 
 
 // MySQL
@@ -38,3 +38,15 @@ connection.connect(error => {
     if (error) throw error;
     console.log('Database server running!')
 });
+
+
+// Users SQL Query
+app.get('/users', (req, res) => {
+    const querySQL = 'SELECT * FROM prueba.Usuario'
+
+    connection.query(querySQL, (error, results) => {
+        if (error) throw error;
+        res.json(results);
+    })
+
+})
