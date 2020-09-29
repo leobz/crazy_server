@@ -5,43 +5,31 @@ const router = require('./router')
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose')
 
-
 // Configurations
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('appName', 'crazyServer')
 
-
 // Middlewares
 app.use(morgan('dev'));
 app.use(bodyParser.json())
-
-
-
 
 // Start server
 app.listen(3000, () => {
     console.log(app.get('appName') + " start on port 3000")
 })
 
-
 // Routes
 app.use('/', router)
 
-
 // Mongoose
-
-async function connect () {
+async function connect() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/shop', { useNewUrlParser: true ,  useUnifiedTopology: true });
+        await mongoose.connect('mongodb://localhost:27017/shop', { useNewUrlParser: true, useUnifiedTopology: true });
         console.log('DB connection successful')
     } catch (error) {
         console.error(error);
-    }    
-} 
+    }
+}
 
 connect();
-
-
-// Route temp
-
