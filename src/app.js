@@ -1,8 +1,10 @@
 const express = require('express')
-const mysql = require('mysql')
 const morgan = require('morgan')
 const app = express()
 const router = require('./router')
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose')
+
 
 // Configurations
 app.set('view engine', 'ejs')
@@ -12,6 +14,9 @@ app.set('appName', 'crazyServer')
 
 // Middlewares
 app.use(morgan('dev'));
+app.use(bodyParser.json())
+
+
 
 
 // Start server
@@ -21,32 +26,22 @@ app.listen(3000, () => {
 
 
 // Routes
-//app.use('/', router)
+app.use('/', router)
 
 
-// MySQL
+// Mongoose
 
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'nativeuser',
-    password: 'password',
-    database: 'prueba'
-});
+async function connect () {
+    try {
+        await mongoose.connect('mongodb://localhost:27017/shop', { useNewUrlParser: true ,  useUnifiedTopology: true });
+        console.log('DB connection successful')
+    } catch (error) {
+        console.error(error);
+    }    
+} 
 
-// Check connect
-connection.connect(error => {
-    if (error) throw error;
-    console.log('Database server running!')
-});
+connect();
 
 
-// Users SQL Query
-app.get('/users', (req, res) => {
-    const querySQL = 'SELECT * FROM prueba.Usuario'
+// Route temp
 
-    connection.query(querySQL, (error, results) => {
-        if (error) throw error;
-        res.json(results);
-    })
-
-})
