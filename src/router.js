@@ -5,7 +5,7 @@ const AuthController = require('./controllers/user')
 const ProductController = require('./controllers/product')
 const token = require('./services/token')
 
-router.get('/', (req, res) => { res.render('index.ejs') })
+router.get('/', (req, res) => { res.render('signUp') })
 
 router.post('/shop', ProductController.createProduct)
 

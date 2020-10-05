@@ -4,9 +4,11 @@ const app = express()
 const router = require('./router')
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose')
+const exphbs  = require('express-handlebars');
 
 // Configurations
-app.set('view engine', 'ejs')
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars')
 app.set('views', __dirname + '/views')
 app.set('appName', 'crazyServer')
 
