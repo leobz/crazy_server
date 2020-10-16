@@ -5,8 +5,10 @@ const router = require('./router')
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose')
 const exphbs  = require('express-handlebars');
+const cors = require("cors")
 
 // Configurations
+app.use(cors())
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars')
 app.set('views', __dirname + '/views')
