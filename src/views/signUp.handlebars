@@ -1,11 +1,39 @@
-<form method="post">
+<form id="signUp" method="post">
     <input type="text" name="email" placeholder="Enter Email" required>
     <br><br>
     <input type="password" name="password" placeholder="Enter Password"  required>
     <br><br>
     <input type="password" name="password-repeat" placeholder="Repeat Password" required>
     <br><br>
-    <input type="submit" value="Register">
+    <input type="submit" value="Sign Up">
  
     <p>Already have an account? <a href="#">Sign in</a>.</p>
 </form>
+
+
+<script type="text/javascript">
+const formSignUp = document.querySelector('#signUp')
+
+formSignUp.addEventListener('submit', event => {
+    event.preventDefault()
+
+    const formData = new FormData(formSignUp)
+    const formDataJSON = JSON.stringify(Object.fromEntries(formData))
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: formDataJSON,
+    redirect: 'follow'
+    };
+
+    fetch('http://localhost:3000/user', requestOptions)
+    .then(response => response.json())
+    .then(data => localStorage.setItem('token', data.token));
+
+})
+
+</script>
