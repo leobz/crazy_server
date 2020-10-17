@@ -23,7 +23,9 @@ function signUp(req, res) {
     })
 }
 
-function signIn(req, res) {
+function login(req, res) {
+    console.log(req.body)
+
     User.find({ email: req.body.email }, (err, user) => {
         if (err) internalError(res, err)
         if (!user || user.length == 0) { notFoundError(res, 'User not exist') }
@@ -37,4 +39,4 @@ function signIn(req, res) {
     })
 }
 
-module.exports = { signUp, signIn }
+module.exports = { signUp, login }

@@ -1,23 +1,21 @@
-<form id="signUp" method="post">
+<form id="login" method="post">
     <input type="text" name="email" placeholder="Enter Email" required>
     <br><br>
     <input type="password" name="password" placeholder="Enter Password"  required>
     <br><br>
-    <input type="password" name="password-repeat" placeholder="Repeat Password" required>
-    <br><br>
-    <input type="submit" value="Sign Up">
+    <input type="submit" value="Login">
  
-    <p>Already have an account? <a href="#">Sign in</a>.</p>
+    <p>Not a member? <a href="#">Signup now</a>.</p>
 </form>
 
 
 <script type="text/javascript">
-const formSignUp = document.querySelector('#signUp')
+const formLogin = document.querySelector('#login')
 
-formSignUp.addEventListener('submit', event => {
+formLogin.addEventListener('submit', event => {
     event.preventDefault()
 
-    const formData = new FormData(formSignUp)
+    const formData = new FormData(formLogin)
     const formDataJSON = JSON.stringify(Object.fromEntries(formData))
 
     var myHeaders = new Headers();
@@ -26,15 +24,14 @@ formSignUp.addEventListener('submit', event => {
     var requestOptions = {
     method: 'POST',
     headers: myHeaders,
-    body: formDataJSON,
-    redirect: 'follow'
+    body: formDataJSON
     };
 
-    fetch('http://localhost:3000/signup', requestOptions)
+    fetch('http://localhost:3000/login', requestOptions)
     .then(response => response.json())
     .then(data => saveToken(data));
 
-})
+}
 
 function saveToken(data) {
     if (data.token) {
